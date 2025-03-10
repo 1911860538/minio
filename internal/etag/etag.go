@@ -117,10 +117,11 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/minio/sio"
+
 	"github.com/minio/minio/internal/fips"
 	"github.com/minio/minio/internal/hash/sha256"
 	xhttp "github.com/minio/minio/internal/http"
-	"github.com/minio/sio"
 )
 
 // ETag is a single S3 ETag.
@@ -185,7 +186,7 @@ func (e ETag) Parts() int {
 		return 1
 	}
 
-	n := bytes.IndexRune(e, '-')
+	n := bytes.IndexByte(e, '-')
 	parts, err := strconv.Atoi(string(e[n+1:]))
 	if err != nil {
 		panic(err) // malformed ETag
